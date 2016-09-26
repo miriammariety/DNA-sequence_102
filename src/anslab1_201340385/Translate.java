@@ -5,49 +5,40 @@
  */
 package anslab1_201340385;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author ty
  */
 public class Translate {
-    Dictionary proteins = new Dictionary() {
-        @Override
-        public int size() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    ArrayList <String> dnaSeq = new ArrayList<>();
+    Map<String, String> map = new HashMap<>();
+    
+    
+    Translate(String input){
+        StringTokenizer tokenizer = new StringTokenizer(input, "\n");
+        while (tokenizer.hasMoreTokens()){
+            dnaSeq.add(tokenizer.nextToken());
         }
-
-        @Override
-        public boolean isEmpty() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public ArrayList translater(ArrayList<String> sequence){
+        ArrayList <String> proteinSeq = new ArrayList<>();
+        
+        for (int i = 0; i < sequence.size(); i++){
+            String currentSeq = sequence.get(i);
+            
         }
-
-        @Override
-        public Enumeration keys() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Enumeration elements() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Object get(Object key) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Object remove(Object key) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    };
+        
+        return proteinSeq;
+    }
+    
+    public void initialize(){
+        map.put(key, value);
+    }
     
 }

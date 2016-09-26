@@ -32,12 +32,12 @@ public class Start extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         manualPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        inputArea = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        transButton = new javax.swing.JButton();
         uploadPanel = new javax.swing.JPanel();
         jFileChooser1 = new javax.swing.JFileChooser();
         translateButton = new javax.swing.JButton();
@@ -52,19 +52,25 @@ public class Start extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setText("DNA Sequence Processing and Analysis");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        inputArea.setColumns(20);
+        inputArea.setRows(5);
+        jScrollPane1.setViewportView(inputArea);
 
         jLabel5.setText("Sequences (Separate each with enter):");
 
         jLabel6.setText("Translated protein sequence:");
 
+        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        jButton1.setText("Translate");
+        transButton.setText("Translate");
+        transButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout manualPanelLayout = new javax.swing.GroupLayout(manualPanel);
         manualPanel.setLayout(manualPanelLayout);
@@ -74,15 +80,16 @@ public class Start extends javax.swing.JFrame {
                 .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(manualPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane2)))
-                    .addGroup(manualPanelLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(jButton1)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                            .addComponent(jLabel6))
+                        .addGap(0, 329, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(transButton)))
+                .addContainerGap())
         );
         manualPanelLayout.setVerticalGroup(
             manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +99,7 @@ public class Start extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(transButton)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,6 +201,12 @@ public class Start extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void transButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transButtonActionPerformed
+        // TODO add your handling code here:
+        String input = inputArea.getText();
+        
+    }//GEN-LAST:event_transButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -232,7 +245,7 @@ public class Start extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
     private javax.swing.JButton frequencyButton;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextArea inputArea;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -242,11 +255,11 @@ public class Start extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel manualPanel;
     private javax.swing.JButton percentageButton;
+    private javax.swing.JButton transButton;
     private javax.swing.JButton translateButton;
     private javax.swing.JPanel uploadPanel;
     // End of variables declaration//GEN-END:variables

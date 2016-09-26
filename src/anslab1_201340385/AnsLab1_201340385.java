@@ -16,6 +16,8 @@ public class AnsLab1_201340385 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Start start = new Start();
+        start.show();
     }
     
 }
