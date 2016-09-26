@@ -204,7 +204,8 @@ public class Start extends javax.swing.JFrame {
     private void transButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transButtonActionPerformed
         // TODO add your handling code here:
         String input = inputArea.getText();
-        
+        Translate translator = new Translate(input);
+        translator.translater(translator.dnaSeq);
     }//GEN-LAST:event_transButtonActionPerformed
 
     /**
