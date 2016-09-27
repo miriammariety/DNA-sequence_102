@@ -57,12 +57,8 @@ public class FreqTable {
     }
     
     float getPercentage(ArrayList<String> letter){
-        System.out.println(letter.get(0) + " count: " + letter.size());
-        System.out.println(this.input.length());
-        System.out.println(letter.size());
-        
-        float percent = 100 * Float.valueOf(letter.size() / this.input.length());
-        System.out.println(percent);
+        System.out.println(letter.get(0) + " count: " + letter.size());        
+        float percent = 100 * (Float.valueOf(letter.size()) / this.input.length());        
         return percent;
     }
 }
