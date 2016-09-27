@@ -15,54 +15,56 @@ import java.util.StringTokenizer;
  * @author ty
  */
 public class Translate {
-    ArrayList <String> dnaSeq;
+
+    ArrayList<String> dnaSeq;
     Map<String, String> map;
-    ArrayList <String> proteinSeq;
-    
-    
-    Translate(String input){
+    ArrayList<String> proteinSeq;
+
+    Translate(String input) {
         map = new HashMap<>();
         proteinSeq = new ArrayList<>();
         dnaSeq = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(input, "\n");
-        while (tokenizer.hasMoreTokens()){
+        while (tokenizer.hasMoreTokens()) {
             dnaSeq.add(tokenizer.nextToken());
         }
     }
-    
-    public void translater(ArrayList<String> sequence){
+
+    public void translater(ArrayList<String> sequence) {
         initialize();
         //Iterate though the sequence list
-        for (int i = 0; i < sequence.size(); i++){
+        for (int i = 0; i < sequence.size(); i++) {
             String currentSeq = sequence.get(i);
             String newSeq = "";
             int tempSize = currentSeq.length();
-            
-            //Iterate through the individual sequence from the list
-            for(int j=0; j < tempSize; j+=3){
-                //Get every three chars and assign as key
-                String key = String.valueOf(currentSeq.charAt(j)) 
-                        + String.valueOf(currentSeq.charAt(j+1)) 
-                        + String.valueOf(currentSeq.charAt(j+2));
-                newSeq += map.get(key);
-                newSeq += " -- ";
+            if (tempSize % 3 != 0) {
+                newSeq += "Invalid length of sequence. Must be divisible by 3";
+            } else {
+                //Iterate through the individual sequence from the list
+                for (int j = 0; j < tempSize; j += 3) {
+                    //Get every three chars and assign as key
+                    String key = String.valueOf(currentSeq.charAt(j))
+                            + String.valueOf(currentSeq.charAt(j + 1))
+                            + String.valueOf(currentSeq.charAt(j + 2));
+                    newSeq += map.get(key);
+                    newSeq += "|";
+                }
             }
-            
+
             //Add to new array
             proteinSeq.add(newSeq);
         }
-        
+
 //        //Check
 //        for(int i = 0; i < proteinSeq.size(); i++){
 //            System.out.println(proteinSeq.get(i));
 //        }
-       
     }
-    
-    public void initialize(){
+
+    public void initialize() {
         map.put("ttt", "Phenylanine");
         map.put("ttc", "Phenylanine");
-        map.put("tta", "Leucine" );
+        map.put("tta", "Leucine");
         map.put("ttg", "Leucine");
         map.put("ctt", "Leucine");
         map.put("ctc", "Leucine");
@@ -124,7 +126,7 @@ public class Translate {
         map.put("ggc", "Glycine");
         map.put("gga", "Glycine");
         map.put("ggg", "Glycine");
-        
+
     }
-    
+
 }
