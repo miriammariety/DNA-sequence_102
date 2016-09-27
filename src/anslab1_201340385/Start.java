@@ -5,6 +5,8 @@
  */
 package anslab1_201340385;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ty
@@ -36,7 +38,7 @@ public class Start extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        outputArea = new javax.swing.JTextArea();
         transButton = new javax.swing.JButton();
         uploadPanel = new javax.swing.JPanel();
         jFileChooser1 = new javax.swing.JFileChooser();
@@ -60,10 +62,10 @@ public class Start extends javax.swing.JFrame {
 
         jLabel6.setText("Translated protein sequence:");
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        outputArea.setEditable(false);
+        outputArea.setColumns(20);
+        outputArea.setRows(5);
+        jScrollPane2.setViewportView(outputArea);
 
         transButton.setText("Translate");
         transButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,19 +78,21 @@ public class Start extends javax.swing.JFrame {
         manualPanel.setLayout(manualPanelLayout);
         manualPanelLayout.setHorizontalGroup(
             manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manualPanelLayout.createSequentialGroup()
-                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
+                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(manualPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(transButton))
                     .addGroup(manualPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 329, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(transButton)))
+                        .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, manualPanelLayout.createSequentialGroup()
+                                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 329, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         manualPanelLayout.setVerticalGroup(
@@ -202,10 +206,20 @@ public class Start extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void transButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transButtonActionPerformed
-        // TODO add your handling code here:
+        // Translate input sequence
         String input = inputArea.getText();
         Translate translator = new Translate(input);
         translator.translater(translator.dnaSeq);
+        
+        // Display translation
+        String output = "";
+        ArrayList<String> outputSequence = translator.proteinSeq;
+        int seqSize = outputSequence.size();
+        for (int i=0; i < seqSize; i++){
+            output += outputSequence.get(i);
+            output += "\n";
+        }
+        outputArea.setText(output);
     }//GEN-LAST:event_transButtonActionPerformed
 
     /**
@@ -256,9 +270,9 @@ public class Start extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel manualPanel;
+    private javax.swing.JTextArea outputArea;
     private javax.swing.JButton percentageButton;
     private javax.swing.JButton transButton;
     private javax.swing.JButton translateButton;

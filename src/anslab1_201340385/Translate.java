@@ -52,11 +52,11 @@ public class Translate {
             proteinSeq.add(newSeq);
         }
         
-        for(int i = 0; i < proteinSeq.size(); i++){
-            System.out.println(proteinSeq.get(i));
-        }
-        
-        
+//        //Check
+//        for(int i = 0; i < proteinSeq.size(); i++){
+//            System.out.println(proteinSeq.get(i));
+//        }
+       
     }
     
     public void initialize(){
