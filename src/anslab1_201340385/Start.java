@@ -40,6 +40,8 @@ public class Start extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
         transButton = new javax.swing.JButton();
+        tableButton = new javax.swing.JButton();
+        graphButton = new javax.swing.JButton();
         uploadPanel = new javax.swing.JPanel();
         jFileChooser1 = new javax.swing.JFileChooser();
         translateButton = new javax.swing.JButton();
@@ -74,16 +76,22 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
+        tableButton.setText("Frequency Table");
+        tableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableButtonActionPerformed(evt);
+            }
+        });
+
+        graphButton.setText("Graph");
+
         javax.swing.GroupLayout manualPanelLayout = new javax.swing.GroupLayout(manualPanel);
         manualPanel.setLayout(manualPanelLayout);
         manualPanelLayout.setHorizontalGroup(
             manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
-                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(manualPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(transButton))
-                    .addGroup(manualPanelLayout.createSequentialGroup()
+            .addGroup(manualPanelLayout.createSequentialGroup()
+                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2)
@@ -92,7 +100,15 @@ public class Start extends javax.swing.JFrame {
                                 .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(0, 329, Short.MAX_VALUE)))))
+                                .addGap(0, 329, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(transButton)
+                            .addGroup(manualPanelLayout.createSequentialGroup()
+                                .addComponent(tableButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(graphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         manualPanelLayout.setVerticalGroup(
@@ -108,7 +124,10 @@ public class Start extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tableButton)
+                    .addComponent(graphButton)))
         );
 
         jTabbedPane1.addTab("Manual Input", manualPanel);
@@ -222,6 +241,12 @@ public class Start extends javax.swing.JFrame {
         outputArea.setText(output);
     }//GEN-LAST:event_transButtonActionPerformed
 
+    private void tableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableButtonActionPerformed
+        // TODO add your handling code here:
+        FreqTable frequency = new FreqTable(inputArea.getText());
+        frequency.count();
+    }//GEN-LAST:event_tableButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +285,7 @@ public class Start extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
     private javax.swing.JButton frequencyButton;
+    private javax.swing.JButton graphButton;
     private javax.swing.JTextArea inputArea;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -274,6 +300,7 @@ public class Start extends javax.swing.JFrame {
     private javax.swing.JPanel manualPanel;
     private javax.swing.JTextArea outputArea;
     private javax.swing.JButton percentageButton;
+    private javax.swing.JButton tableButton;
     private javax.swing.JButton transButton;
     private javax.swing.JButton translateButton;
     private javax.swing.JPanel uploadPanel;
