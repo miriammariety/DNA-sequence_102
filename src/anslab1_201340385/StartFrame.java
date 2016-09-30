@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author ty
  */
-public class Start extends javax.swing.JFrame {
+public class StartFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form Start
      */
-    public Start() {
+    public StartFrame() {
         initComponents();
     }
 
@@ -84,6 +84,11 @@ public class Start extends javax.swing.JFrame {
         });
 
         graphButton.setText("Graph");
+        graphButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout manualPanelLayout = new javax.swing.GroupLayout(manualPanel);
         manualPanel.setLayout(manualPanelLayout);
@@ -244,8 +249,17 @@ public class Start extends javax.swing.JFrame {
     private void tableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableButtonActionPerformed
         // TODO add your handling code here:
         FreqTable frequency = new FreqTable(inputArea.getText());
-        frequency.count();
+        FrequencyFrame frame = new FrequencyFrame(frequency);
+        frame.show();
     }//GEN-LAST:event_tableButtonActionPerformed
+
+    private void graphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphButtonActionPerformed
+        // TODO add your handling code here:
+        Translate trans = new Translate(inputArea.getText());
+        trans.translater(trans.dnaSeq);
+        //trans.dnaSeq is your arraylist
+        Graph graph = new Graph(trans.dnaSeq);
+    }//GEN-LAST:event_graphButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,20 +278,21 @@ public class Start extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Start().setVisible(true);
+                new StartFrame().setVisible(true);
             }
         });
     }

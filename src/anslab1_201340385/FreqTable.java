@@ -44,21 +44,19 @@ public class FreqTable {
                     break;
             }
         }
-        System.out.println(String.valueOf(getPercentage(a)));
-        System.out.println(String.valueOf(getPercentage(c)));
-        System.out.println(String.valueOf(getPercentage(t)));
-        System.out.println(String.valueOf(getPercentage(g)));
+        
     }
     
-    void printElements(ArrayList<String> letter){
-        for(int i=0; i<letter.size();i++){
-            System.out.println(letter.get(i));
-        }
-    }
+//    void printElements(ArrayList<String> letter){
+//        for(int i=0; i<letter.size();i++){
+//            System.out.println(letter.get(i));
+//        }
+//    }
     
-    float getPercentage(ArrayList<String> letter){
-        System.out.println(letter.get(0) + " count: " + letter.size());        
+    float getPercentage(ArrayList<String> letter){      
         float percent = 100 * (Float.valueOf(letter.size()) / this.input.length());        
         return percent;
     }
+    
+    
 }
