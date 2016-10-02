@@ -17,7 +17,7 @@ public class Graph{
     ArrayList<String> sequences;
     int maxLength;
     double [] a, c, t, g, xData;
-    
+    XYChart chart;
     
     public Graph(ArrayList<String> sequence){
         sequences = sequence;
@@ -27,15 +27,16 @@ public class Graph{
         t = new double[maxLength];
         g = new double[maxLength];
         xData = new double[maxLength];
-        XYChart chart = new XYChartBuilder().width(400).height(300).
+        chart = new XYChartBuilder().width(400).height(300).
                 title("NucleoTide Trend").xAxisTitle("Position").
                 yAxisTitle("Count").build();
         
-        chart.addSeries("Adenine", xData, a);
-        chart.addSeries("Adenine", xData, c);
-        chart.addSeries("Adenine", xData, t);
-        chart.addSeries("Adenine", xData, g);
+        count();
         
+        chart.addSeries("Adenine", xData, a);
+        chart.addSeries("Cytosine", xData, c);
+        chart.addSeries("Thymine", xData, t);
+        chart.addSeries("Guanine", xData, g);
     }
     
     //Max length for sequences
@@ -50,8 +51,12 @@ public class Graph{
     
     void count(){
         //Count instances of character c in a position i
+        for (int i = 0; i < maxLength; i++) {
+            xData[i] = i + 1;
+        }
+        
         for(int pos=0; pos < maxLength; pos++){
-            for(int seq=1; seq < sequences.size(); seq++){
+            for(int seq=0; seq < sequences.size(); seq++){
                 String ch = String.valueOf(
                         sequences.get(seq).charAt(pos)).toLowerCase();
                 switch(ch){
