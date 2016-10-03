@@ -204,7 +204,7 @@ public class StartFrame extends javax.swing.JFrame {
             }
         });
 
-        frequencyButton.setText("Frequency");
+        frequencyButton.setText("Frequency Table");
         frequencyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 frequencyButtonActionPerformed(evt);
