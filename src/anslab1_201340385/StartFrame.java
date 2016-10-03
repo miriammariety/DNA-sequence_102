@@ -31,6 +31,11 @@ public class StartFrame extends javax.swing.JFrame {
      */
     public StartFrame() {
         initComponents();
+        saveFastaButton.setEnabled(false);
+        tableButton.setEnabled(false);
+        graphButton.setEnabled(false);
+        trendButton.setEnabled(false);
+        frequencyButton.setEnabled(false);
     }
 
     /**
@@ -42,6 +47,7 @@ public class StartFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         mainPanel = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -67,6 +73,17 @@ public class StartFrame extends javax.swing.JFrame {
         trendButton = new javax.swing.JButton();
         frequencyButton = new javax.swing.JButton();
         saveFastaButton = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -303,6 +320,8 @@ public class StartFrame extends javax.swing.JFrame {
             output += "\n";
         }
         outputArea.setText(output);
+        tableButton.setEnabled(true);
+        graphButton.setEnabled(true);
     }//GEN-LAST:event_transButtonActionPerformed
 
     private void tableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableButtonActionPerformed
@@ -335,6 +354,9 @@ public class StartFrame extends javax.swing.JFrame {
             outputFASTA += "\n";
         }
         outputFastaArea.setText(outputFASTA);
+        saveFastaButton.setEnabled(true);
+        trendButton.setEnabled(true);
+        frequencyButton.setEnabled(true);
 
 
     }//GEN-LAST:event_translateFButtonActionPerformed
@@ -393,6 +415,8 @@ public class StartFrame extends javax.swing.JFrame {
         }
         
         
+        saveFastaButton.setEnabled(false);
+        
     }//GEN-LAST:event_saveFastaButtonActionPerformed
 
     /**
@@ -436,6 +460,7 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JButton graphButton;
     private javax.swing.JTextArea inputArea;
     private javax.swing.JTextArea inputFastaArea;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
