@@ -350,6 +350,7 @@ public class StartFrame extends javax.swing.JFrame {
         ArrayList<String> outputSequence = analyzer.proteinSeq;
         int seqSize = outputSequence.size();
         for (int i = 0; i < seqSize; i++) {
+            outputFASTA += output.get(i);
             outputFASTA += outputSequence.get(i);
             outputFASTA += "\n";
         }
@@ -401,10 +402,7 @@ public class StartFrame extends javax.swing.JFrame {
             String directory = new File(".").getCanonicalPath();
             PrintWriter writer = new PrintWriter(directory+"/src/output.fasta", "UTF-8");
             System.out.println(new File(".").getCanonicalPath());
-            for(int i=0; i<output.size();i++){
-                writer.println(output.get(i));
-                writer.println(analyzer.proteinSeq.get(i));
-            }
+            writer.println(outputFastaArea.getText());
             writer.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
