@@ -5,21 +5,33 @@
  */
 package anslab1_201340385;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author ty
  */
 public class FrequencyFrame extends javax.swing.JFrame {
+
     FreqTable entity;
+
     /**
      * Creates new form FrequencyFrame
      */
     public FrequencyFrame(FreqTable entity) {
         this.entity = entity;
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
-        
+
     }
 
     /**
@@ -36,6 +48,7 @@ public class FrequencyFrame extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         backButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +64,13 @@ public class FrequencyFrame extends javax.swing.JFrame {
         });
 
         saveButton.setText("Save as JPG");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nucleotide Count");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,19 +84,24 @@ public class FrequencyFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveButton)
                         .addGap(18, 18, 18)
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton)
-                    .addComponent(saveButton))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(saveButton)
+                    .addComponent(backButton))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,6 +122,20 @@ public class FrequencyFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int retrival = chooser.showSaveDialog(this.jLabel1);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                BufferedImage bi = createImage(this.jTable1);
+                File outputfile = new File(chooser.getSelectedFile() + ".png");
+                ImageIO.write(bi, "png", outputfile);
+            } catch (IOException e) {
+            }
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,35 +171,48 @@ public class FrequencyFrame extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
     private DefaultTableModel fillTable(FreqTable entity) {
         entity.count();
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("Nucleotide");
         table.addColumn("Frequency");
         table.addColumn("Percentage");
-        
+
         String[] a = {"Adenine", String.valueOf(entity.a.size()),
-                            String.valueOf(entity.getPercentage(entity.a))};
+            String.valueOf(entity.getPercentage(entity.a))};
         String[] c = {"Cytosine", String.valueOf(entity.c.size()),
-                            String.valueOf(entity.getPercentage(entity.c))}; 
+            String.valueOf(entity.getPercentage(entity.c))};
         String[] t = {"Thymine", String.valueOf(entity.t.size()),
-                            String.valueOf(entity.getPercentage(entity.t))};
+            String.valueOf(entity.getPercentage(entity.t))};
         String[] g = {"Guanine", String.valueOf(entity.g.size()),
-                            String.valueOf(entity.getPercentage(entity.g))};
+            String.valueOf(entity.getPercentage(entity.g))};
         String[] total = {"Total", String.valueOf(entity.input.length())};
-        
+
         table.addRow(a);
         table.addRow(c);
         table.addRow(t);
         table.addRow(g);
         table.addRow(total);
-        
+
         return table;
+    }
+
+    public static BufferedImage createImage(JTable table) {
+        JTableHeader tableHeaderComp = table.getTableHeader();
+        int totalWidth = 499;
+        int totalHeight = 120;
+        BufferedImage tableImage = new BufferedImage(totalWidth, totalHeight,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2D = (Graphics2D) tableImage.getGraphics();
+        tableHeaderComp.paint(g2D);
+        g2D.translate(0, tableHeaderComp.getHeight());
+        table.paint(g2D);
+        return tableImage;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

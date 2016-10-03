@@ -5,13 +5,20 @@
  */
 package anslab1_201340385;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
 
 /**
  *
  * @author ty
  */
 public class StartFrame extends javax.swing.JFrame {
+
+    Translate analyzer;
+    ArrayList<String> dnaSequence = new ArrayList<>();
 
     /**
      * Creates new form Start
@@ -30,7 +37,7 @@ public class StartFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         manualPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,18 +50,21 @@ public class StartFrame extends javax.swing.JFrame {
         tableButton = new javax.swing.JButton();
         graphButton = new javax.swing.JButton();
         uploadPanel = new javax.swing.JPanel();
-        jFileChooser1 = new javax.swing.JFileChooser();
-        translateButton = new javax.swing.JButton();
+        translateFButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        outputFastaArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        inputFastaArea = new javax.swing.JTextArea();
+        uploadButton = new javax.swing.JButton();
+        trendButton = new javax.swing.JButton();
         frequencyButton = new javax.swing.JButton();
-        percentageButton = new javax.swing.JButton();
-        exitButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel1.setText("DNA Sequence Processing and Analysis");
+        title.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        title.setText("DNA Sequence Processing and Analysis");
 
         inputArea.setColumns(20);
         inputArea.setRows(5);
@@ -105,7 +115,7 @@ public class StartFrame extends javax.swing.JFrame {
                                 .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(0, 329, Short.MAX_VALUE))))
+                                .addGap(0, 340, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manualPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(manualPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -137,57 +147,88 @@ public class StartFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Manual Input", manualPanel);
 
-        translateButton.setText("Translate to Protein Sequences");
+        translateFButton.setText("Translate Sequence");
+        translateFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                translateFButtonActionPerformed(evt);
+            }
+        });
 
-        frequencyButton.setText("Frequency and Percentage Table");
+        jLabel2.setText("Translated Protein Sequence");
 
-        percentageButton.setText("Trend of Nucleotide Occurrences");
+        outputFastaArea.setColumns(20);
+        outputFastaArea.setRows(5);
+        jScrollPane3.setViewportView(outputFastaArea);
 
-        exitButton.setText("EXIT");
+        jLabel1.setText("Input DNA sequence");
 
-        jLabel3.setText("File Name:");
+        inputFastaArea.setColumns(20);
+        inputFastaArea.setRows(5);
+        jScrollPane4.setViewportView(inputFastaArea);
 
-        jLabel4.setText("//custom code");
+        uploadButton.setText("Upload FASTA file");
+        uploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadButtonActionPerformed(evt);
+            }
+        });
+
+        trendButton.setText("Nucleotide Trend");
+        trendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trendButtonActionPerformed(evt);
+            }
+        });
+
+        frequencyButton.setText("Frequency");
+        frequencyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout uploadPanelLayout = new javax.swing.GroupLayout(uploadPanel);
         uploadPanel.setLayout(uploadPanelLayout);
         uploadPanelLayout.setHorizontalGroup(
             uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(uploadPanelLayout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(translateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(frequencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(percentageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(uploadPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(32, 32, 32)
+                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(translateFButton, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(uploadButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(trendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(frequencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         uploadPanelLayout.setVerticalGroup(
             uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(uploadPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(translateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(uploadPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(uploadPanelLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(uploadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(translateFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(frequencyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(frequencyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(percentageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(uploadPanelLayout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Upload File", uploadPanel);
@@ -201,7 +242,7 @@ public class StartFrame extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(title)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -209,7 +250,7 @@ public class StartFrame extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
@@ -234,12 +275,12 @@ public class StartFrame extends javax.swing.JFrame {
         String input = inputArea.getText();
         Translate translator = new Translate(input);
         translator.translater(translator.dnaSeq);
-        
+
         // Display translation
         String output = "";
         ArrayList<String> outputSequence = translator.proteinSeq;
         int seqSize = outputSequence.size();
-        for (int i=0; i < seqSize; i++){
+        for (int i = 0; i < seqSize; i++) {
             output += outputSequence.get(i);
             output += "\n";
         }
@@ -259,13 +300,64 @@ public class StartFrame extends javax.swing.JFrame {
         trans.translater(trans.dnaSeq);
         //trans.dnaSeq is your arraylist
         Graph graph = new Graph(trans.dnaSeq);
-        GraphFrame frame = new GraphFrame(graph.chart);
-        frame.show();
     }//GEN-LAST:event_graphButtonActionPerformed
 
+    private void translateFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateFButtonActionPerformed
+        // TODO add your handling code here:
+        //Translate
+        translateFasta();
+
+        analyzer.translater(dnaSequence);
+        // Display translation
+        String outputFASTA = "";
+        ArrayList<String> outputSequence = analyzer.proteinSeq;
+        int seqSize = outputSequence.size();
+        for (int i = 0; i < seqSize; i++) {
+            outputFASTA += outputSequence.get(i);
+            outputFASTA += "\n";
+        }
+        outputFastaArea.setText(outputFASTA);
+
+
+    }//GEN-LAST:event_translateFButtonActionPerformed
+
+    private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(title);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            analyzer = new Translate(fc.getSelectedFile());
+            //This is where a real application would open the file.
+            String input = "";
+            try {
+                Scanner sc = new Scanner(this.analyzer.getFile());
+                while (sc.hasNextLine()) {
+                    input += sc.nextLine() + "\n";
+                }
+                this.inputFastaArea.setText(input);
+
+            } catch (FileNotFoundException fne) {
+            }
+        } else {
+            System.out.println("operation cancelled");
+        }
+    }//GEN-LAST:event_uploadButtonActionPerformed
+
+    private void trendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trendButtonActionPerformed
+        // TODO add your handling code here:
+        Graph graph = new Graph(dnaSequence);
+    }//GEN-LAST:event_trendButtonActionPerformed
+
+    private void frequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyButtonActionPerformed
+        // TODO add your handling code here:
+        FreqTable frequency = new FreqTable(translateFasta());
+        FrequencyFrame frame = new FrequencyFrame(frequency);
+        frame.show();
+    }//GEN-LAST:event_frequencyButtonActionPerformed
+
     /**
-//     * @param args the command line arguments
-//     */
+     * // * @param args the command line arguments //
+     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -300,26 +392,60 @@ public class StartFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exitButton;
     private javax.swing.JButton frequencyButton;
     private javax.swing.JButton graphButton;
     private javax.swing.JTextArea inputArea;
-    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JTextArea inputFastaArea;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel manualPanel;
     private javax.swing.JTextArea outputArea;
-    private javax.swing.JButton percentageButton;
+    private javax.swing.JTextArea outputFastaArea;
     private javax.swing.JButton tableButton;
+    private javax.swing.JLabel title;
     private javax.swing.JButton transButton;
-    private javax.swing.JButton translateButton;
+    private javax.swing.JButton translateFButton;
+    private javax.swing.JButton trendButton;
+    private javax.swing.JButton uploadButton;
     private javax.swing.JPanel uploadPanel;
     // End of variables declaration//GEN-END:variables
+
+    private String translateFasta() {
+        String[] textAreaValue = inputFastaArea.getText().split("\n");
+        String output = "";
+        String input = "";
+
+        for (int i = 0, n = textAreaValue.length; i < n; i++) {
+            if (textAreaValue[i].startsWith(">")) {
+                if (!input.equals("")) {
+                    // output += this.analyzer.translateToProtein(input) + "\r\n";
+                    dnaSequence.add(input);
+                    input = "";
+                }
+                output += textAreaValue[i] + "_PROTEIN_EQUIVALENT\r\n";
+            } else {
+                input += textAreaValue[i];
+            }
+        }
+        if (!input.equals("")) {
+            // output += this.analyzer.translateToProtein(input) + "\r\n";
+            dnaSequence.add(input);
+            input = "";
+        }
+
+        String test = "";
+        for (int i = 0; i < dnaSequence.size(); i++) {
+            test += dnaSequence.get(i);
+            test += "\n";
+        }
+        return test;
+    }
 }

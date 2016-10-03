@@ -5,6 +5,7 @@
  */
 package anslab1_201340385;
 
+import javax.swing.JFrame;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 
@@ -19,6 +20,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(XYChart chart) {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.jPanel1.add(new SwingWrapper<XYChart>(chart).displayChart());
     }
 

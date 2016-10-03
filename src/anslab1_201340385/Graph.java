@@ -37,6 +37,8 @@ public class Graph{
         chart.addSeries("Cytosine", xData, c);
         chart.addSeries("Thymine", xData, t);
         chart.addSeries("Guanine", xData, g);
+        
+        ChartFrame frame = new ChartFrame(chart);
     }
     
     //Max length for sequences
