@@ -7,8 +7,13 @@ package anslab1_201340385;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -19,6 +24,7 @@ public class StartFrame extends javax.swing.JFrame {
 
     Translate analyzer;
     ArrayList<String> dnaSequence = new ArrayList<>();
+    ArrayList<String> output = new ArrayList<>();
 
     /**
      * Creates new form Start
@@ -60,6 +66,7 @@ public class StartFrame extends javax.swing.JFrame {
         uploadButton = new javax.swing.JButton();
         trendButton = new javax.swing.JButton();
         frequencyButton = new javax.swing.JButton();
+        saveFastaButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,6 +194,13 @@ public class StartFrame extends javax.swing.JFrame {
             }
         });
 
+        saveFastaButton.setText("Save output as FASTA");
+        saveFastaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFastaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout uploadPanelLayout = new javax.swing.GroupLayout(uploadPanel);
         uploadPanel.setLayout(uploadPanelLayout);
         uploadPanelLayout.setHorizontalGroup(
@@ -203,7 +217,8 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(translateFButton, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                     .addComponent(uploadButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(trendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(frequencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(frequencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveFastaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         uploadPanelLayout.setVerticalGroup(
@@ -226,7 +241,10 @@ public class StartFrame extends javax.swing.JFrame {
                         .addComponent(frequencyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(uploadPanelLayout.createSequentialGroup()
+                        .addComponent(trendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saveFastaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -355,6 +373,28 @@ public class StartFrame extends javax.swing.JFrame {
         frame.show();
     }//GEN-LAST:event_frequencyButtonActionPerformed
 
+    private void saveFastaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFastaButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            String directory = new File(".").getCanonicalPath();
+            PrintWriter writer = new PrintWriter(directory+"/src/output.fasta", "UTF-8");
+            System.out.println(new File(".").getCanonicalPath());
+            for(int i=0; i<output.size();i++){
+                writer.println(output.get(i));
+                writer.println(analyzer.proteinSeq.get(i));
+            }
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_saveFastaButtonActionPerformed
+
     /**
      * // * @param args the command line arguments //
      */
@@ -409,6 +449,7 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JPanel manualPanel;
     private javax.swing.JTextArea outputArea;
     private javax.swing.JTextArea outputFastaArea;
+    private javax.swing.JButton saveFastaButton;
     private javax.swing.JButton tableButton;
     private javax.swing.JLabel title;
     private javax.swing.JButton transButton;
@@ -420,7 +461,6 @@ public class StartFrame extends javax.swing.JFrame {
 
     private String translateFasta() {
         String[] textAreaValue = inputFastaArea.getText().split("\n");
-        String output = "";
         String input = "";
 
         for (int i = 0, n = textAreaValue.length; i < n; i++) {
@@ -430,7 +470,7 @@ public class StartFrame extends javax.swing.JFrame {
                     dnaSequence.add(input);
                     input = "";
                 }
-                output += textAreaValue[i] + "_PROTEIN_EQUIVALENT\r\n";
+                output.add(textAreaValue[i] + "_PROTEIN_EQUIVALENT\r\n");
             } else {
                 input += textAreaValue[i];
             }
